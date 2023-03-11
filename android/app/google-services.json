@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "21682642364",
+    "firebase_url": "https://emergency-app-flutter-default-rtdb.firebaseio.com",
     "project_id": "emergency-app-flutter",
     "storage_bucket": "emergency-app-flutter.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "21682642364-pelfs0r2sp5cg8pfhl01r4bohp4dhdar.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "21682642364-bigmsiv2aj7kng1c5jlsggi68jim75th.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hackathon"
+              }
             }
           ]
         }

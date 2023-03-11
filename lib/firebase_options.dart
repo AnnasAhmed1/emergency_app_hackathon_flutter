@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,41 +52,12 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyABey8C5Aj8vCU2CsfDYW-bnFsaVpdbIQI',
-    appId: '1:21682642364:web:4df4a9552a002ad0465fb9',
-    messagingSenderId: '21682642364',
-    projectId: 'emergency-app-flutter',
-    authDomain: 'emergency-app-flutter.firebaseapp.com',
-    storageBucket: 'emergency-app-flutter.appspot.com',
-    measurementId: 'G-HZ9P1RB61V',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBQH-Bz0iwQ2anhMeU0K3WrovMkDqyZ818',
     appId: '1:21682642364:android:17f4be4d97d77fce465fb9',
     messagingSenderId: '21682642364',
     projectId: 'emergency-app-flutter',
+    databaseURL: 'https://emergency-app-flutter-default-rtdb.firebaseio.com',
     storageBucket: 'emergency-app-flutter.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDHY1d0aGqMCwFZwxTp-FrgoW2sr4zBtH4',
-    appId: '1:21682642364:ios:51c61cb831aab976465fb9',
-    messagingSenderId: '21682642364',
-    projectId: 'emergency-app-flutter',
-    storageBucket: 'emergency-app-flutter.appspot.com',
-    iosClientId: '21682642364-bigmsiv2aj7kng1c5jlsggi68jim75th.apps.googleusercontent.com',
-    iosBundleId: 'com.example.hackathon',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDHY1d0aGqMCwFZwxTp-FrgoW2sr4zBtH4',
-    appId: '1:21682642364:ios:51c61cb831aab976465fb9',
-    messagingSenderId: '21682642364',
-    projectId: 'emergency-app-flutter',
-    storageBucket: 'emergency-app-flutter.appspot.com',
-    iosClientId: '21682642364-bigmsiv2aj7kng1c5jlsggi68jim75th.apps.googleusercontent.com',
-    iosBundleId: 'com.example.hackathon',
   );
 }
