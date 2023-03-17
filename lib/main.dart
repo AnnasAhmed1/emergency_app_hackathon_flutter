@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hackathon/aaa.dart';
 import 'package:hackathon/screens/login.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'app/app.locator.dart';
+import 'app/app.router.dart';
 import 'firebase_options.dart';
 import 'screens/map_screen.dart';
 import 'screens/signup.dart';
@@ -16,32 +19,35 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await setupLocator();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-   final Map<int, Color> color = {
-      50: Color.fromRGBO(253, 171, 26, .1),
-      100: Color.fromRGBO(253, 171, 26, .2),
-      200: Color.fromRGBO(253, 171, 26, .3),
-      300: Color.fromRGBO(253, 171, 26, .4),
-      400: Color.fromRGBO(253, 171, 26, .5),
-      500: Color.fromRGBO(253, 171, 26, .6),
-      600: Color.fromRGBO(253, 171, 26, .7),
-      700: Color.fromRGBO(253, 171, 26, .8),
-      800: Color.fromRGBO(253, 171, 26, .9),
-      900: Color.fromRGBO(253, 171, 26, 1),
-    };
+  MyApp({super.key});
+  final Map<int, Color> color = {
+    50: Color.fromRGBO(253, 171, 26, .1),
+    100: Color.fromRGBO(253, 171, 26, .2),
+    200: Color.fromRGBO(253, 171, 26, .3),
+    300: Color.fromRGBO(253, 171, 26, .4),
+    400: Color.fromRGBO(253, 171, 26, .5),
+    500: Color.fromRGBO(253, 171, 26, .6),
+    600: Color.fromRGBO(253, 171, 26, .7),
+    700: Color.fromRGBO(253, 171, 26, .8),
+    800: Color.fromRGBO(253, 171, 26, .9),
+    900: Color.fromRGBO(253, 171, 26, 1),
+  };
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          scaffoldBackgroundColor: Color(0xFFFFFFFF),
-          primarySwatch: MaterialColor(0xFFFDAB1A, color),
-          primaryColor: const Color(0xFFFDAB1A),),
-      home: HomeView(),
+        scaffoldBackgroundColor: Color(0xFFFFFFFF),
+        primarySwatch: MaterialColor(0xFFF70000, color),
+        primaryColor: const Color(0xFFF70000),
+      ),
+      navigatorKey: StackedService.navigatorKey,
+      onGenerateRoute: StackedRouter().onGenerateRoute,
     );
   }
 }

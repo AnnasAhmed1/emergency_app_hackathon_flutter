@@ -13,7 +13,7 @@ import '../app/app.locator.dart';
 //   HomeViewArguments({required this.title, required this.itemCount});
 // }
 
-class LoginViewModel extends BaseViewModel {
+class LoginServiceViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   // final args = const HomeViewArguments(args: "95");
 

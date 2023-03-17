@@ -8,14 +8,14 @@ import 'package:stacked/stacked.dart';
 // import '../app/app.router.dart';
 import '../app/app.router.dart';
 import '../firebase_database.dart';
+import '../viewmodels/home_service_viewmodel.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../viewmodels/login_viewmodel.dart';
 import '../widgets/bottomsheet.dart';
-import '../widgets/request_card.dart';
 import '../widgets/service_card.dart';
 
-class HomeView extends StatelessWidget {
-  // HomeView({super.key});
+class HomeServicesView extends StatelessWidget {
+  // HomeServicesView({super.key});
 
   final List<Map> services = [
     {
@@ -46,7 +46,7 @@ class HomeView extends StatelessWidget {
       ]
     },
   ];
-  // late HomeViewArguments args;
+  // late HomeServicesViewArguments args;
   late String args;
   late dynamic check;
   late dynamic refe;
@@ -63,37 +63,24 @@ class HomeView extends StatelessWidget {
         print('reference is from users');
       } else {
         print('reference is from service_providers');
-        // () async => await FirebaseDatabase.instance
-        //         .ref("app_database/service_providers/test1@gmail")
-        //         .once()
-        //         .then((snapshot) {
-        //       // The reference is valid
-        //       print('reference is from service_providers');
-        //     });
       }
     });
   }
 
-  HomeView({super.key, required this.args});
+  HomeServicesView({super.key, required this.args});
   @override
   Widget build(BuildContext context) {
     print("args==>${args}");
-    return ViewModelBuilder<HomeViewModel>.reactive(
+    return ViewModelBuilder<HomeServicesViewModel>.reactive(
       onViewModelReady: (viewModel) {},
-      viewModelBuilder: () => HomeViewModel(),
+      viewModelBuilder: () => HomeServicesViewModel(),
       builder: (context, viewMoel, child) => Scaffold(
-        // floatingActionButton: ,
         appBar: AppBar(
           title: Text("Emargency App"),
           centerTitle: true,
         ),
         body: Column(
           children: [
-            requestCard(
-              context,
-              () {},
-              "title",
-            ),
             Expanded(
               child: ListView.builder(
                   itemCount: services.length,
@@ -110,8 +97,6 @@ class HomeView extends StatelessWidget {
                           getata();
                           print("latitude=>latitude");
                           print("longitu=> longitude");
-
-                          // print(i);
                         },
                       ),
                       services[index]["title"],

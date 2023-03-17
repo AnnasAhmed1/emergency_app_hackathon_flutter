@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeServicesViewModel extends BaseViewModel {
   addData(
       ref, requestFrom, requestFor, emergencyLevel, latitude, longitude) async {
     print("Service provider Data base add data");

@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+// import 'package:stranded_driver/screens/customer_module/signup.dart';
+// import 'package:stranded_driver/screens/customer_module/forgot_password.dart';
+// import 'package:stranded_driver/screens/customer_module/verification.dart';
+// import 'package:stranded_driver/widgets/text_navigation.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/input_feild.dart';
+import '../viewmodels/login_service_viewmodel.dart';
 import '../viewmodels/login_viewmodel.dart';
 import '../widgets/text_navigation.dart';
 
-class LoginView extends StatelessWidget {
-  // const LoginView({Key? key}) : super(key: key);
-  late String argument;
-  LoginView({
-    super.key,
-    required this.argument,
-  });
-
+class LoginServiceView extends StatelessWidget {
+  const LoginServiceView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
+    return ViewModelBuilder<LoginServiceViewModel>.reactive(
         onViewModelReady: (viewModel) {},
-        viewModelBuilder: () => LoginViewModel(),
+        viewModelBuilder: () => LoginServiceViewModel(),
         builder: (context, viewModel, child) => SafeArea(
               child: Scaffold(
                 body: SingleChildScrollView(
@@ -29,12 +28,12 @@ class LoginView extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 1,
                           height: MediaQuery.of(context).size.width * 0.7,
                           // height: 300,
-                          image: const AssetImage(
+                          image: AssetImage(
                             'assets/login.jpeg',
                           ),
                           fit: BoxFit.fitWidth,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 70,
                         ),
                         Center(
@@ -45,7 +44,7 @@ class LoginView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(
-                                  " Login",
+                                  "Service Provider Login",
                                   style: TextStyle(
                                     fontSize: 19.0,
                                     fontFamily: "Poppins",

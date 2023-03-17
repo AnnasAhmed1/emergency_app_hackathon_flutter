@@ -7,16 +7,18 @@ import 'package:stacked/stacked.dart';
 // import 'package:stranded_driver/widgets/text_navigation.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/input_feild.dart';
+import '../viewmodels/signup_service_viewmodel.dart';
 import '../viewmodels/signup_viewmodel.dart';
 import '../widgets/text_navigation.dart';
 
-class SignupView extends StatelessWidget {
-  SignupView({Key? key}) : super(key: key);
+class SignupServiceView extends StatelessWidget {
+  SignupServiceView({Key? key}) : super(key: key);
   final Map<String, TextEditingController> _controllers_list = {
     "first_name": _firstName_controller,
     "last_name": _lastName_controller,
     "email_address_signup": _email_controller,
     "password_signup": _password_controller,
+    "service_signup": _service_controller,
     "mobile_number": _mobileNumber_controller,
   };
   final List<String> txtlist = [
@@ -24,6 +26,7 @@ class SignupView extends StatelessWidget {
     "Last Name",
     "Email Address",
     "Password",
+    "Service",
     "Mobile Number",
   ];
   late bool serviceProviderStatus = false;
@@ -34,9 +37,9 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SignupViewModel>.reactive(
+    return ViewModelBuilder<SignupServiceViewModel>.reactive(
         onViewModelReady: (viewModel) {},
-        viewModelBuilder: () => SignupViewModel(),
+        viewModelBuilder: () => SignupServiceViewModel(),
         builder: (context, viewModel, child) => Scaffold(
               body: SingleChildScrollView(
                 reverse: true,
@@ -61,7 +64,7 @@ class SignupView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Text(
-                              "Customer SignUp",
+                              "Service Provider SignUp",
                               style: TextStyle(
                                 fontSize: 19.0,
                                 fontFamily: "Poppins",
@@ -83,15 +86,17 @@ class SignupView extends StatelessWidget {
                                         _controllers_list[controllerName]!);
                                   }),
                             ),
+
                             Center(
                               child: ButtonWidget("Register Now", context, () {
                                 viewModel.signup(
                                   FirebaseDatabase.instance.ref(
-                                      "app_database/users/${_email_controller.text.split(".")[0]}"),
+                                      "app_database/service_providers/${_service_controller.text}/${_email_controller.text.split(".")[0]}"),
                                   _firstName_controller.text,
                                   _lastName_controller.text,
                                   _email_controller.text,
                                   _password_controller.text,
+                                  _service_controller.text,
                                   _mobileNumber_controller.text,
                                 );
                               }),
@@ -99,7 +104,7 @@ class SignupView extends StatelessWidget {
                             Center(
                               child: TextButton(
                                 child: Text(
-                                  "Sign up as service provider",
+                                  "Sign up as customer",
                                   style: TextStyle(
                                     color: Theme.of(context).primaryColor,
                                     fontSize: 11,
@@ -137,8 +142,11 @@ class SignupView extends StatelessWidget {
                                     viewModel.navigateToLogin();
                                   },
                                 )
+                                // text_button(
+                                //     "SignIn", Theme.of(context).primaryColor, null)
                               ],
                             ),
+                            // inst.but("Already have account?", "SignIn", context)
                           ],
                         ),
                       ),
@@ -154,4 +162,5 @@ TextEditingController _email_controller = TextEditingController();
 TextEditingController _password_controller = TextEditingController();
 TextEditingController _firstName_controller = TextEditingController();
 TextEditingController _lastName_controller = TextEditingController();
+TextEditingController _service_controller = TextEditingController();
 TextEditingController _mobileNumber_controller = TextEditingController();
