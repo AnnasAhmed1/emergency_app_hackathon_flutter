@@ -94,11 +94,10 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i3.SignupView: (data) {
-      final args = data.getArgs<SignupViewArguments>(
-        orElse: () => const SignupViewArguments(),
-      );
+      final args = data.getArgs<SignupViewArguments>(nullOk: false);
       return _i10.MaterialPageRoute<dynamic>(
-        builder: (context) => _i3.SignupView(key: args.key),
+        builder: (context) =>
+            _i3.SignupView(key: args.key, arguments: args.arguments),
         settings: data,
         maintainState: false,
       );
@@ -106,7 +105,10 @@ class StackedRouter extends _i1.RouterBase {
     _i4.HomeView: (data) {
       final args = data.getArgs<HomeViewArguments>(nullOk: false);
       return _i10.MaterialPageRoute<dynamic>(
-        builder: (context) => _i4.HomeView(key: args.key, args: args.args),
+        builder: (context) => _i4.HomeView(
+            key: args.key,
+            argument: args.argument,
+            credential: args.credential),
         settings: data,
         maintainState: false,
       );
@@ -131,8 +133,10 @@ class StackedRouter extends _i1.RouterBase {
     _i7.HomeServicesView: (data) {
       final args = data.getArgs<HomeServicesViewArguments>(nullOk: false);
       return _i10.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i7.HomeServicesView(key: args.key, args: args.args),
+        builder: (context) => _i7.HomeServicesView(
+            key: args.key,
+            cerdentials: args.cerdentials,
+            arguments: args.arguments),
         settings: data,
         maintainState: false,
       );
@@ -176,29 +180,37 @@ class LoginViewArguments {
 }
 
 class SignupViewArguments {
-  const SignupViewArguments({this.key});
+  const SignupViewArguments({
+    this.key,
+    required this.arguments,
+  });
 
   final _i10.Key? key;
 
+  final String arguments;
+
   @override
   String toString() {
-    return '{"key": "$key"}';
+    return '{"key": "$key", "arguments": "$arguments"}';
   }
 }
 
 class HomeViewArguments {
   const HomeViewArguments({
     this.key,
-    required this.args,
+    required this.argument,
+    required this.credential,
   });
 
   final _i10.Key? key;
 
-  final String args;
+  final String argument;
+
+  final String credential;
 
   @override
   String toString() {
-    return '{"key": "$key", "args": "$args"}';
+    return '{"key": "$key", "argument": "$argument", "credential": "$credential"}';
   }
 }
 
@@ -216,16 +228,19 @@ class SignupServiceViewArguments {
 class HomeServicesViewArguments {
   const HomeServicesViewArguments({
     this.key,
-    required this.args,
+    required this.cerdentials,
+    required this.arguments,
   });
 
   final _i10.Key? key;
 
-  final String args;
+  final String cerdentials;
+
+  final String arguments;
 
   @override
   String toString() {
-    return '{"key": "$key", "args": "$args"}';
+    return '{"key": "$key", "cerdentials": "$cerdentials", "arguments": "$arguments"}';
   }
 }
 
@@ -249,6 +264,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> navigateToSignupView({
     _i10.Key? key,
+    required String arguments,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -256,7 +272,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.signupView,
-        arguments: SignupViewArguments(key: key),
+        arguments: SignupViewArguments(key: key, arguments: arguments),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -265,7 +281,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> navigateToHomeView({
     _i10.Key? key,
-    required String args,
+    required String argument,
+    required String credential,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -273,7 +290,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.homeView,
-        arguments: HomeViewArguments(key: key, args: args),
+        arguments: HomeViewArguments(
+            key: key, argument: argument, credential: credential),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -312,7 +330,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> navigateToHomeServicesView({
     _i10.Key? key,
-    required String args,
+    required String cerdentials,
+    required String arguments,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -320,7 +339,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.homeServicesView,
-        arguments: HomeServicesViewArguments(key: key, args: args),
+        arguments: HomeServicesViewArguments(
+            key: key, cerdentials: cerdentials, arguments: arguments),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -374,6 +394,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> replaceWithSignupView({
     _i10.Key? key,
+    required String arguments,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -381,7 +402,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.signupView,
-        arguments: SignupViewArguments(key: key),
+        arguments: SignupViewArguments(key: key, arguments: arguments),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -390,7 +411,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> replaceWithHomeView({
     _i10.Key? key,
-    required String args,
+    required String argument,
+    required String credential,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -398,7 +420,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.homeView,
-        arguments: HomeViewArguments(key: key, args: args),
+        arguments: HomeViewArguments(
+            key: key, argument: argument, credential: credential),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -437,7 +460,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> replaceWithHomeServicesView({
     _i10.Key? key,
-    required String args,
+    required String cerdentials,
+    required String arguments,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -445,7 +469,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.homeServicesView,
-        arguments: HomeServicesViewArguments(key: key, args: args),
+        arguments: HomeServicesViewArguments(
+            key: key, cerdentials: cerdentials, arguments: arguments),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

@@ -6,33 +6,54 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../app/app.locator.dart';
 
-// class HomeViewArguments {
-//   final String title;
-//   final int itemCount;
-
-//   HomeViewArguments({required this.title, required this.itemCount});
-// }
-
 class LoginViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  // final args = const HomeViewArguments(args: "95");
 
-  navigateToHome(credential) {
-    _navigationService.navigateTo(Routes.homeView,
-        arguments: HomeViewArguments(args: "${credential.user?.email}"));
+  navigateToHome(credential, argument) {
+    _navigationService.navigateTo(
+      Routes.homeView,
+      arguments: HomeViewArguments(
+        credential: "${credential.user?.email}",
+        argument: argument,
+      ),
+    );
   }
 
-  navigateToSignup() {
-    _navigationService.navigateToSignupView();
+  navigateToHomeService(credential, argument) {
+    _navigationService.navigateTo(
+      Routes.homeServicesView,
+      arguments: HomeServicesViewArguments(
+        cerdentials: "${credential.user?.email}",
+        arguments: argument,
+      ),
+    );
   }
 
-  login(email, password) async {
+  navigateToSignup(arguments) {
+    _navigationService.navigateTo(
+      Routes.signupView,
+      arguments: SignupViewArguments(
+        arguments: arguments,
+      ),
+    );
+  }
+
+  login(email, password, argument) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      navigateToHome(credential);
+      argument == "user"
+          ? navigateToHome(
+              credential,
+              argument,
+            )
+          : navigateToHomeService(
+              credential,
+              argument,
+            );
+
       print("credential.credential${credential.user?.email}");
     } on FirebaseAuthException catch (e) {
       print("error");

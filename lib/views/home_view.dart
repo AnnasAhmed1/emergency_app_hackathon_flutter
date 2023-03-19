@@ -47,9 +47,11 @@ class HomeView extends StatelessWidget {
     },
   ];
   // late HomeViewArguments args;
-  late String args;
+  late String argument;
+  late String credential;
   late dynamic check;
   late dynamic refe;
+  HomeView({super.key, required this.argument, required this.credential});
 
   getata() async {
     // refe=;
@@ -74,10 +76,9 @@ class HomeView extends StatelessWidget {
     });
   }
 
-  HomeView({super.key, required this.args});
   @override
   Widget build(BuildContext context) {
-    print("args==>${args}");
+    print("args==>${argument}");
     return ViewModelBuilder<HomeViewModel>.reactive(
       onViewModelReady: (viewModel) {},
       viewModelBuilder: () => HomeViewModel(),
@@ -89,11 +90,11 @@ class HomeView extends StatelessWidget {
         ),
         body: Column(
           children: [
-            requestCard(
-              context,
-              () {},
-              "title",
-            ),
+            // requestCard(
+            //   context,
+            //   () {},
+            //   "title",
+            // ),
             Expanded(
               child: ListView.builder(
                   itemCount: services.length,
@@ -104,7 +105,7 @@ class HomeView extends StatelessWidget {
                         context,
                         services[index]["levels"],
                         (i) {
-                          print("request_from=>${args}");
+                          print("request_from=>${argument}");
                           print("request_for=>${services[index]["title"]}");
                           print("emergency_level=>${i}");
                           getata();

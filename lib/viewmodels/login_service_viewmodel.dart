@@ -6,24 +6,19 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../app/app.locator.dart';
 
-// class HomeViewArguments {
-//   final String title;
-//   final int itemCount;
 
-//   HomeViewArguments({required this.title, required this.itemCount});
-// }
 
 class LoginServiceViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   // final args = const HomeViewArguments(args: "95");
 
-  navigateToHome(credential) {
+  navigateToHome(credential,argument) {
     _navigationService.navigateTo(Routes.homeView,
-        arguments: HomeViewArguments(args: "${credential.user?.email}"));
+        arguments: HomeViewArguments(credential: "${credential.user?.email}", argument: argument));
   }
 
   navigateToSignup() {
-    _navigationService.navigateToSignupView();
+    _navigationService.navigateToSignupView(arguments: "");
   }
 
   login(email, password) async {
@@ -32,7 +27,7 @@ class LoginServiceViewModel extends BaseViewModel {
         email: email,
         password: password,
       );
-      navigateToHome(credential);
+      navigateToHome(credential,"");
       print("credential.credential${credential.user?.email}");
     } on FirebaseAuthException catch (e) {
       print("error");

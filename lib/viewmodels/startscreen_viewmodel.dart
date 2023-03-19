@@ -9,10 +9,12 @@ import '../app/app.router.dart';
 class StartscreenViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
-  navigateToLogin() {
+  navigateToLogin(arguments) {
     _navigationService.navigateTo(
       Routes.loginView,
-      arguments: "Annas",
+      arguments: LoginViewArguments(
+        argument: arguments,
+      ),
     );
   }
 }

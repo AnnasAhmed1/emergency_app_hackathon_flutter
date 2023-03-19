@@ -18,7 +18,7 @@ requestCard(context, onTap, title) {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          "Request form:${title}",
+          "Request from:${title}",
           style: TextStyle(
             fontSize: 25.0,
           ),

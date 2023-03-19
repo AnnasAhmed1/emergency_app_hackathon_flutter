@@ -21,21 +21,17 @@ class StartscreenView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ContainerWidget(
-                    text: "Need Emergency Assistance",
-                    // onTap: (viemModel) {
-                    //   print("ANNAS");
-                    //   viemModel.navigateToLogin;
-                    // },
-                    onTap: () {
-                      print("Annas");
-                      viewModel.navigateToLogin();
-                    }),
+                  text: "Need Emergency Assistance",
+                  onTap: () {
+                    viewModel.navigateToLogin("user");
+                  },
+                ),
                 ContainerWidget(
-                    text: "Are You A Service Provider?",
-                    // onTap: (viemModel) {
-                    //   viemModel.navigateToLogin;
-                    // },
-                    onTap: () {}),
+                  text: "Are You A Service Provider?",
+                  onTap: () {
+                    viewModel.navigateToLogin("service_provider");
+                  },
+                ),
               ],
             ),
           ),

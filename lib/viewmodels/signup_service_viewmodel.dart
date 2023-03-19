@@ -15,7 +15,7 @@ class SignupServiceViewModel extends BaseViewModel {
   }
 
   navigateToSignup() {
-    _navigationService.navigateToSignupView();
+    _navigationService.navigateToSignupView(arguments: "");
   }
 
   addData(

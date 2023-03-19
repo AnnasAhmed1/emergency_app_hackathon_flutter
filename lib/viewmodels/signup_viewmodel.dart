@@ -10,13 +10,9 @@ class SignupViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 // final DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
 
-  // navigateToHome() {
-  //   _navigationService.navigateToHomeView();
-  // }
-
-  navigateToLogin() {
+  navigateToLogin(argument) {
     _navigationService.navigateToLoginView(
-      argument: "Annas",
+      argument: argument,
     );
   }
 
@@ -24,7 +20,14 @@ class SignupViewModel extends BaseViewModel {
     _navigationService.navigateToSignupServiceView();
   }
 
-  addData(ref, firstName, lastName, email, password, mobileNumber) async {
+  addDataUser(
+    ref,
+    firstName,
+    lastName,
+    email,
+    password,
+    mobileNumber,
+  ) async {
     print("Data base add data");
     try {
       await ref.set({
@@ -39,7 +42,15 @@ class SignupViewModel extends BaseViewModel {
     }
   }
 
-  signup(ref, firstName, lastName, email, password, mobileNumber) async {
+  signup(
+    ref,
+    firstName,
+    lastName,
+    email,
+    password,
+    mobileNumber,
+    arguments,
+  ) async {
     if (firstName.length == 0 ||
         lastName.length == 0 ||
         email.length == 0 ||
@@ -53,8 +64,8 @@ class SignupViewModel extends BaseViewModel {
           email: email,
           password: password,
         );
-        addData(ref, firstName, lastName, email, password, mobileNumber);
-        navigateToLogin();
+        addDataUser(ref, firstName, lastName, email, password, mobileNumber);
+        navigateToLogin(arguments);
         print(credential);
       } on FirebaseAuthException catch (e) {
         print(e);
@@ -62,38 +73,67 @@ class SignupViewModel extends BaseViewModel {
     }
   }
 
-  // addDataServiceProvider(ref, firstName, lastName, email, password,service, mobileNumber) async {
-  //   print("Service provider Data base add data");
-  //   try {
-  //     await ref.set({
-  //       "first_name": firstName,
-  //       "last_name": lastName,
-  //       "email": email,
-  //     "service":  service,
-  //       "password": password,
-  //     });
-  //     print(" service provider successfull data base add");
-  //   } catch (e) {
-  //     print("serice provider error==>${e}");
-  //   }
-  // }
+  addDataService(
+      ref, firstName, lastName, email, password, service, mobileNumber) async {
+    print("Service provider Data base add data");
+    try {
+      await ref.set({
+        "first_name": firstName,
+        "last_name": lastName,
+        "email": email,
+        "service": service,
+        "password": password,
+      });
+      print(" service provider successfull data base add");
+    } catch (e) {
+      print("serice provider error==>${e}");
+    }
+  }
 
-  // signupServiceProvider(ref, firstName, lastName, email, password,service, mobileNumber) async {
-  //   if (!firstName || !lastName || !email || !password || !service || !mobileNumber) {
-  //     print("Service provider required feilds are missing");
-  //   } else {
-  //     try {
-  //       final credential =
-  //           await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //         email: email,
-  //         password: password,
-  //       );
-  //       addData(ref, firstName, lastName, email, password, mobileNumber);
-  //       navigateToLogin();
-  //       print(credential);
-  //     } on FirebaseAuthException catch (e) {
-  //       print(e);
-  //     }
-  //   }
-  // }
+  signupService(
+    ref,
+    firstName,
+    lastName,
+    email,
+    password,
+    service,
+    mobileNumber,
+    arguments,
+  ) async {
+    service = service.toLowerCase();
+    print(service);
+    if (firstName.length == 0 ||
+        lastName.length == 0 ||
+        email.length == 0 ||
+        password.length == 0 ||
+        service.length == 0 ||
+        mobileNumber.length == 0) {
+      print("Service provider required feilds are missing");
+    } else if (service == "ambulance" ||
+        service == "police" ||
+        service == "firebrigade") {
+      try {
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        addDataService(
+          ref,
+          firstName,
+          lastName,
+          email,
+          password,
+          service,
+          mobileNumber,
+        );
+        navigateToLogin(arguments);
+        print(credential);
+      } on FirebaseAuthException catch (e) {
+        print(e);
+      }
+    } else {
+      print("Wrong service choosen");
+    }
+  }
 }

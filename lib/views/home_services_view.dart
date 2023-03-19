@@ -12,6 +12,7 @@ import '../viewmodels/home_service_viewmodel.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../viewmodels/login_viewmodel.dart';
 import '../widgets/bottomsheet.dart';
+import '../widgets/request_card.dart';
 import '../widgets/service_card.dart';
 
 class HomeServicesView extends StatelessWidget {
@@ -47,9 +48,15 @@ class HomeServicesView extends StatelessWidget {
     },
   ];
   // late HomeServicesViewArguments args;
-  late String args;
+  late String arguments;
+  late String cerdentials;
   late dynamic check;
   late dynamic refe;
+  HomeServicesView({
+    super.key,
+    required this.cerdentials,
+    required this.arguments,
+  });
 
   getata() async {
     // refe=;
@@ -67,10 +74,9 @@ class HomeServicesView extends StatelessWidget {
     });
   }
 
-  HomeServicesView({super.key, required this.args});
   @override
   Widget build(BuildContext context) {
-    print("args==>${args}");
+    print("args==>${cerdentials}");
     return ViewModelBuilder<HomeServicesViewModel>.reactive(
       onViewModelReady: (viewModel) {},
       viewModelBuilder: () => HomeServicesViewModel(),
@@ -78,31 +84,37 @@ class HomeServicesView extends StatelessWidget {
         appBar: AppBar(
           title: Text("Emargency App"),
           centerTitle: true,
+          automaticallyImplyLeading: false,
         ),
         body: Column(
           children: [
-            Expanded(
-              child: ListView.builder(
-                  itemCount: services.length,
-                  itemBuilder: (context, index) {
-                    return serviceCard(
-                      context,
-                      () => openBottomSheet(
-                        context,
-                        services[index]["levels"],
-                        (i) {
-                          print("request_from=>${args}");
-                          print("request_for=>${services[index]["title"]}");
-                          print("emergency_level=>${i}");
-                          getata();
-                          print("latitude=>latitude");
-                          print("longitu=> longitude");
-                        },
-                      ),
-                      services[index]["title"],
-                    );
-                  }),
+            requestCard(
+              context,
+              () {},
+              "title",
             ),
+            // Expanded(
+            //   child: ListView.builder(
+            //       itemCount: services.length,
+            //       itemBuilder: (context, index) {
+            //         return serviceCard(
+            //           context,
+            //           () => openBottomSheet(
+            //             context,
+            //             services[index]["levels"],
+            //             (i) {
+            //               print("request_from=>${args}");
+            //               print("request_for=>${services[index]["title"]}");
+            //               print("emergency_level=>${i}");
+            //               getata();
+            //               print("latitude=>latitude");
+            //               print("longitu=> longitude");
+            //             },
+            //           ),
+            //           services[index]["title"],
+            //         );
+            //       }),
+            // ),
           ],
         ),
       ),
